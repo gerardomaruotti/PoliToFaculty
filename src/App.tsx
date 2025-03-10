@@ -11,7 +11,6 @@ import {
   import {NavBar} from './core/components/NavBar';
   import {colors} from './core/constants/colors';
   import * as themes from './core/constants/themes';
-  import { AppNavigator } from './core/components/AppNavigator';
 
 
   export const App = () => {
