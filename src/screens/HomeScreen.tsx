@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { SectionHeader } from '../core/components/SectionHeader';
+import { SectionHeader } from '../ui/components/SectionHeader';
 
 export const HomeScreen = () => {
   return (

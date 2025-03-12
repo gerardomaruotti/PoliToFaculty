@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, useColorScheme, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { colors } from '../constants/colors';
+//import { colors } from '../../core/constants/colors';
 import { Separator } from './Separator';
+import { useTheme } from '../hooks/useTheme';
 
 type SectionHeaderProps = {
   title: string;
@@ -10,19 +11,19 @@ type SectionHeaderProps = {
 };
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({ title, linkTo }) => {
-  const colorScheme = useColorScheme();
+  const { colors } = useTheme();
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <Separator />
       <View style={styles.innerContainer}>
-        <Text style={[styles.title, colorScheme === 'dark' ? styles.titleDark : null]}>
+        <Text style={[styles.title, {color: colors.heading}]}>
           {title}
         </Text>
 
         <TouchableOpacity onPress={() => navigation.navigate(linkTo)}>
-          <Text style={[styles.link, colorScheme === 'dark' ? styles.linkDark : null]}>
+          <Text style={[styles.link, {color: colors.heading}]}>
             Vedi tutto
           </Text>
         </TouchableOpacity>
@@ -34,28 +35,18 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({ title, linkTo }) =
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    flexDirection: 'column',
     paddingHorizontal: 18,
   },
   innerContainer: {
     width: '100%',
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   title: {
-    color: colors.primary700,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'left',
-  },
-  titleDark: {
-    color: colors.text50,
-  },
-  link: {
-    color: colors.primary500,
-  },
-  linkDark: {
-    color: colors.primary400,
   },
 });

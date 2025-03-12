@@ -3,11 +3,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { EmptyScreen } from '../../screens/EmptyScreen';
 import { TeachingNavigator } from './TeachingNavigator';
+import { AgendaNavigator } from './AgendaNavigator';
+import { ProfileNavigator } from './ProfileNavigator';
+import { ServicesScreen } from '../../screens/ServicesScreen';
+import { PlacesScreen } from '../../screens/PlacesScreen';
 const Tab = createBottomTabNavigator();
 
 export const NavBar = () => {
   return (
     <Tab.Navigator
+      backBehavior="history"
       screenOptions={{
         headerShown: false,
       }}
@@ -24,7 +29,7 @@ export const NavBar = () => {
       />
       <Tab.Screen
         name="Agenda"
-        component={EmptyScreen}
+        component={AgendaNavigator}
         options={{
           tabBarLabel: 'Agenda',
           tabBarIcon: ({ color, size }) => (
@@ -34,7 +39,7 @@ export const NavBar = () => {
       />
       <Tab.Screen
         name="Places"
-        component={EmptyScreen}
+        component={PlacesScreen}
         options={{
           tabBarLabel: 'Luoghi',
           tabBarIcon: ({ color, size }) => (
@@ -44,7 +49,7 @@ export const NavBar = () => {
       /> 
       <Tab.Screen
       name="Services"
-      component={EmptyScreen}
+      component={ServicesScreen}
       options={{
         tabBarLabel: 'Servizi',
         tabBarIcon: ({ color, size }) => (
@@ -54,7 +59,7 @@ export const NavBar = () => {
     />
       <Tab.Screen
         name="Profile"
-        component={EmptyScreen}
+        component={ProfileNavigator}
         options={{
           tabBarLabel: 'Profilo',
           tabBarIcon: ({ color, size }) => (

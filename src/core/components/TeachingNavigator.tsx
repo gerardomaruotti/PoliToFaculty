@@ -5,7 +5,7 @@ import { ExamsScreen } from '../../screens/ExamsScreen';
 import { GradesScreen } from '../../screens/GradesScreen';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { SectionHeader } from './SectionHeader';
+import { SectionHeader } from '../../ui/components/SectionHeader';
 
 const Stack = createNativeStackNavigator();
 
