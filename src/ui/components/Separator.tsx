@@ -3,13 +3,12 @@ import { View } from 'react-native';
 import React from 'react';
  
  export const Separator = () => {
-   const { colors } = useTheme();
-   return (
+  const { colors, spacing } = useTheme();   return (
      <View
        style={{
          width: 32,
          height: 4,
-         marginBottom: 8,
+         marginBottom: spacing[2] as number,          
          backgroundColor: colors.secondary[600],
        }}
      />

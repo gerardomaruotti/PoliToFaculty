@@ -39,6 +39,7 @@
     "@react-native/eslint-config": "0.78.0",
     "@react-native/metro-config": "0.78.0",
     "@react-native/typescript-config": "0.78.0",
+    "@types/color": "^4.2.0",
     "@types/jest": "^29.5.13",
     "@types/prop-types": "^15.7.14",
     "@types/react": "^19.0.0",

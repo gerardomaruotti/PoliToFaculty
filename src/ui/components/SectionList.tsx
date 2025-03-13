@@ -14,30 +14,30 @@ import React from 'react';
    dividers = Platform.select({ ios: true, android: false }),
  }: Props) => {
    const { spacing } = useTheme();
-   const childrenArray = Children.toArray(children);
  
    return (
-     <View
+    <Card
+    rounded={Platform.select({ android: false })}
        style={{
-         paddingVertical: spacing[2] as number,
-         paddingHorizontal: Platform.select({ ios: spacing[4] as number }),
+        marginVertical: spacing[2] as number,
+        marginHorizontal: Platform.select({ ios: spacing[4] as number}),
        }}
      >
-       <Card>
-         {dividers
-           ? childrenArray.map((c, i) => (
+       {dividers
+         ? Children.map(children, (c, i) => {
+             return (
                <>
                  {c}
-                 {i < childrenArray.length - 1 && (
+                 {i < Children.count(children) - 1 && (
                    <Divider
                      key={`div-${i}`}
                      style={{ marginStart: spacing[5] as number}}
                    />
                  )}
                </>
-             ))
-           : children}
-       </Card>
-     </View>
+             );
+            })
+          : children}
+      </Card>
    );
  };

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { EmptyScreen } from '../../screens/EmptyScreen';
@@ -7,32 +7,53 @@ import { getHeaderTitle } from '@react-navigation/elements';
  import { useTheme } from '../../ui/hooks/useTheme';
  import { Header } from './Header';
  import { TranslucentView } from './TranslucentView';
- 
-
- import AnimatedValue = Animated.AnimatedValue;
+ import { Tab } from '../../ui/components/Tab';
+ import { Tabs } from '../../ui/components/Tabs';
 import { TeachingScreen } from '../../screens/TeachingScreen';
- const Tabs = createBottomTabNavigator();
- const scrollTop = new Animated.Value(0);
+const TabsNav = createBottomTabNavigator(); 
 
 
 export const NavBar = () => {
 
   const { colors } = useTheme();
+  const tabBarStyle: any = {
+    position: Platform.select({ ios: 'absolute' }),
+  };
+  if (Platform.OS === 'ios') {
+    tabBarStyle.height = 84;
+  }
 
   return (
 
 
-    <Tabs.Navigator
+     <TabsNav.Navigator
       backBehavior="history"
       screenOptions={{
-        tabBarStyle: Platform.select({ ios: { position: 'absolute' } }),
+        tabBarStyle,
         tabBarBackground: Platform.select({
           ios: () => <TranslucentView />,
         }),
         header: ({ options, route }) => {
           const title = getHeaderTitle(options, route.name);
-          return <Header {...options} title={title} scrollTop={scrollTop} />;
+          return (
+            <Header
+              {...options}
+              title={title}
+              bottom={
+                <Tabs selectedIndexes={[0]}>
+                  <Tab>Info</Tab>
+                  <Tab>Notices</Tab>
+                  <Tab>Material</Tab>
+                  <Tab>Homework</Tab>
+                  <Tab>Homework</Tab>
+                  <Tab>Homework</Tab>
+                  <Tab>Homework</Tab>
+                </Tabs>
+              }
+            />
+          );
         },
+        headerTitleStyle: { color: colors.heading },
         headerTransparent: true,
         headerBackground: Platform.select({
           ios: () => <TranslucentView />,
@@ -47,10 +68,9 @@ export const NavBar = () => {
         }),
       }}
     >
-      <Tabs.Screen
+      <TabsNav.Screen
         name="Teaching"
         component={TeachingScreen}
-        initialParams={{ scrollTop }}
         options={{
           tabBarLabel: 'Didattica',
           tabBarIcon: ({ color, size }) => (
@@ -58,7 +78,7 @@ export const NavBar = () => {
           ),
         }}
       />
-      <Tabs.Screen
+      <TabsNav.Screen
         name="Agenda"
         component={EmptyScreen}
         options={{
@@ -68,7 +88,7 @@ export const NavBar = () => {
           ),
         }}
       />
-      <Tabs.Screen
+      <TabsNav.Screen
         name="Places"
         component={EmptyScreen}
         options={{
@@ -78,7 +98,7 @@ export const NavBar = () => {
           ),
         }}
       /> 
-      <Tabs.Screen
+      <TabsNav.Screen
       name="Services"
       component={EmptyScreen}
       options={{
@@ -88,7 +108,7 @@ export const NavBar = () => {
         ),
       }}
     />
-      <Tabs.Screen
+      <TabsNav.Screen
         name="Profile"
         component={EmptyScreen}
         options={{
@@ -98,7 +118,7 @@ export const NavBar = () => {
           ),
         }}
       />
-    </Tabs.Navigator>
+    </TabsNav.Navigator>
   );
 };
 
@@ -106,7 +126,5 @@ export const NavBar = () => {
 
 
 export type TabsNavigatorParamList = {
-  Teaching: {
-    scrollTop?: AnimatedValue;
-  };
+  Teaching: undefined;
 };
