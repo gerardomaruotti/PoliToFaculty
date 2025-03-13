@@ -4,11 +4,16 @@ import { useNavigation } from '@react-navigation/native';
 //import { colors } from '../../core/constants/colors';
 import { Separator } from './Separator';
 import { useTheme } from '../hooks/useTheme';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { TeachingScreen } from '../../screens/TeachingScreen';
+import { EmptyScreen } from '../../screens/EmptyScreen';
+import {Link} from '@react-navigation/native'
 
 type SectionHeaderProps = {
   title: string;
   linkTo: string; // Nome della schermata di destinazione
 };
+const Stack = createNativeStackNavigator();
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({ title, linkTo }) => {
   const { colors } = useTheme();
@@ -21,7 +26,6 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({ title, linkTo }) =
         <Text style={[styles.title, {color: colors.heading}]}>
           {title}
         </Text>
-
         <TouchableOpacity onPress={() => navigation.navigate(linkTo)}>
           <Text style={[styles.link, {color: colors.heading}]}>
             Vedi tutto
@@ -31,6 +35,9 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({ title, linkTo }) =
     </View>
   );
 };
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -50,3 +57,5 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
 });
+
+

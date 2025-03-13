@@ -9,8 +9,7 @@ import {
   } from 'react-native';
   import { NavigationContainer } from '@react-navigation/native';
   import {NavBar} from './core/components/NavBar';
-  import {colors} from './core/constants/colors';
-  import * as themes from './core/constants/themes';
+ 
   import { darkTheme } from './core/themes/dark';
  import { lightTheme } from './core/themes/light';
  import { fromUiTheme } from './utils/navigation-theme';
@@ -28,6 +27,7 @@ import {
         <SafeAreaView style={styles.container}>
           <NavigationContainer theme={navigationTheme}>
         <NavBar></NavBar>
+        
           </NavigationContainer>
         </SafeAreaView>
         </ThemeContext.Provider>

@@ -11,7 +11,6 @@ export const EmptyScreen = () => {
 
 const styles = StyleSheet.create({
   sectionsContainer: {
-    display: 'flex',
     paddingVertical: 18,
   },
 });
