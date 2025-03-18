@@ -7,7 +7,7 @@ export const CourseScreen = () => {
 
   return (
     <View>
-      <Text>Course {selectedCourse?.title}</Text>
+      <Text>Course {selectedCourse?.id} </Text>
     </View>
   );
 };
