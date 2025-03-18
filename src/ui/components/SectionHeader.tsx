@@ -5,10 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import { Separator } from './Separator';
 import { useTheme } from '../hooks/useTheme';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { TeachingScreen } from '../../screens/TeachingScreen';
+import { TeachingScreen } from '../../screens/Teaching/TeachingScreen';
 import { EmptyScreen } from '../../screens/EmptyScreen';
 import {Link} from '@react-navigation/native'
 import { Text } from './Text';
+import { Theme } from '../types/theme';
+import { useStylesheet } from '../hooks/useStylesheet';
 
 type SectionHeaderProps = {
   title: string;
@@ -19,18 +21,19 @@ const Stack = createNativeStackNavigator();
 export const SectionHeader: React.FC<SectionHeaderProps> = ({ title, linkTo }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const styles = useStylesheet(createStyles);
 
   return (
     <View style={styles.container}>
       <Separator />
       <View style={styles.innerContainer}>
-        <Text
+      <Text
           variant="title"
-          style={{
-            color: colors.heading,
-          }}
+          style={styles.title}
           accessible={true}
           accessibilityRole="header"
+          numberOfLines={1}
+          ellipsizeMode="tail"
         >
           {title}
         </Text>
@@ -45,23 +48,20 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({ title, linkTo }) =
 
 
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingHorizontal: 18,
-  },
-  innerContainer: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'left',
-  },
-});
+const createStyles = ({ spacing, colors }: Theme) =>
+  StyleSheet.create({
+    container: {
+      paddingHorizontal: spacing[5] as number,
+    },
+    title: {
+      color: colors.heading,
+      flex: 1,
+      marginEnd: spacing[5] as number,
+    },
+    innerContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+  });
 
 

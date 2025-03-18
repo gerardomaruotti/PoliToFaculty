@@ -9,7 +9,10 @@ import { getHeaderTitle } from '@react-navigation/elements';
  import { TranslucentView } from './TranslucentView';
  import { Tab } from '../../ui/components/Tab';
  import { Tabs } from '../../ui/components/Tabs';
-import { TeachingScreen } from '../../screens/TeachingScreen';
+import { TeachingScreen } from '../../screens/Teaching/TeachingScreen';
+import { TeachingNavigator } from '../../screens/Teaching/TeachingNavigator';
+
+
 const TabsNav = createBottomTabNavigator(); 
 
 
@@ -26,62 +29,24 @@ export const NavBar = () => {
   return (
 
 
-     <TabsNav.Navigator
-      backBehavior="history"
-      screenOptions={{
-        tabBarStyle,
-        tabBarBackground: Platform.select({
-          ios: () => <TranslucentView />,
-        }),
-        header: ({ options, route }) => {
-          const title = getHeaderTitle(options, route.name);
-          return (
-            <Header
-              {...options}
-              title={title}
-              bottom={
-                <Tabs selectedIndexes={[0]}>
-                  <Tab>Info</Tab>
-                  <Tab>Notices</Tab>
-                  <Tab>Material</Tab>
-                  <Tab>Homework</Tab>
-                  <Tab>Homework</Tab>
-                  <Tab>Homework</Tab>
-                  <Tab>Homework</Tab>
-                </Tabs>
-              }
-            />
-          );
-        },
-        headerTitleStyle: { color: colors.heading },
-        headerTransparent: true,
-        headerBackground: Platform.select({
-          ios: () => <TranslucentView />,
-          android: (props: { style: Animated.WithAnimatedValue<StyleProp<ViewStyle>> }) => {
-            // Assicurati che il tipo di `style` sia correttamente gestito come stile valido
-            const animatedStyle: Animated.WithAnimatedValue<StyleProp<ViewStyle>> = props.style;
-        
-            return (
-              <Animated.View style={[animatedStyle, { backgroundColor: colors.surface }]} />
-            );
-          },
-        }),
-      }}
-    >
+     <TabsNav.Navigator>
       <TabsNav.Screen
-        name="Teaching"
-        component={TeachingScreen}
+        name="Incarichi"
+        component={TeachingNavigator}
         options={{
+          headerShown : false,
           tabBarLabel: 'Didattica',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="book" color={color} size={size} />
           ),
+          
         }}
       />
       <TabsNav.Screen
         name="Agenda"
         component={EmptyScreen}
         options={{
+          headerShown : false,
           tabBarLabel: 'Agenda',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar" color={color} size={size} />
@@ -92,6 +57,7 @@ export const NavBar = () => {
         name="Places"
         component={EmptyScreen}
         options={{
+          headerShown : false,
           tabBarLabel: 'Luoghi',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="location" color={color} size={size} />
@@ -102,6 +68,7 @@ export const NavBar = () => {
       name="Services"
       component={EmptyScreen}
       options={{
+        headerShown : false,
         tabBarLabel: 'Servizi',
         tabBarIcon: ({ color, size }) => (
           <Ionicons name="location" color={color} size={size} />
@@ -112,6 +79,7 @@ export const NavBar = () => {
         name="Profile"
         component={EmptyScreen}
         options={{
+          headerShown : false,
           tabBarLabel: 'Profilo',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person" color={color} size={size} />

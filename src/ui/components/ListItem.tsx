@@ -1,27 +1,27 @@
 import React, { JSX } from 'react';
 import {
   View,
-  TouchableOpacity,
+  TouchableHighlight,
   Platform,
-  TouchableOpacityProps,
-  StyleSheet,
+  TouchableHighlightProps,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../hooks/useTheme';
 import { Text } from './Text';
 
 interface Props {
-  title: string;
-  subtitle: string;
+  title: string | JSX.Element;
+  subtitle?: string | JSX.Element;
   leadingItem?: JSX.Element;
   trailingItem?: JSX.Element;
-  linkTo?: string; // Nome della schermata di destinazione
+  linkTo?: string;
 }
 
 /**
- * List item con titolo, sottotitolo, leading e trailing elements.
- * Se `linkTo` è presente, viene mostrata una freccia su iOS.
+ * A list item with support for a title, subtitle, leading and trailing
+ * elements. If a linkTo is provided, a forward icon is automatically
+ * displayed as a trailing element on iOS.
  */
 export const ListItem = ({
   title,
@@ -31,34 +31,42 @@ export const ListItem = ({
   linkTo,
   onPress,
   ...rest
-}: TouchableOpacityProps & Props) => {
+}: TouchableHighlightProps & Props) => {
   const { fontSizes, colors, spacing } = useTheme();
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      onPress={() => {
-        if (linkTo) {
-          navigation.navigate(linkTo as never); // Correzione per TypeScript
-        } else if (onPress) {
-          onPress();
-        }
-      }}
+    <TouchableHighlight
+      underlayColor={colors.touchableHighlight}
+      onPress={
+        linkTo
+          ? () => {
+              navigation.navigate(linkTo);
+            }
+          : onPress
+      }
       {...rest}
     >
       <View
-         style={{
-           flexDirection: 'row',
-           alignItems: 'center',
-           paddingHorizontal: spacing[5] as number,
-           paddingVertical: spacing[2] as number,
-         }}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingHorizontal: spacing[5] as number,
+          paddingVertical: spacing[2] as number,
+        }}
       >
         {leadingItem}
         <View style={{ flex: 1 }}>
           {typeof title === 'string' ? (
-            <Text variant="title" weight="normal">
+            <Text
+              variant="title"
+              style={{
+                fontSize: fontSizes.md,
+              }}
+              weight="normal"
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
               {title}
             </Text>
           ) : (
@@ -70,6 +78,8 @@ export const ListItem = ({
               style={{
                 fontSize: fontSizes.sm,
               }}
+              numberOfLines={1}
+              ellipsizeMode="tail"
             >
               {subtitle}
             </Text>
@@ -87,20 +97,6 @@ export const ListItem = ({
           trailingItem
         )}
       </View>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  subtitle: {
-    fontSize: 14,
-  },
-});

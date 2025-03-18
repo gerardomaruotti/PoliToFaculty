@@ -1,43 +1,46 @@
 import React from 'react';
 import { PropsWithChildren } from 'react';
-import { Platform, View, ViewProps, StyleSheet, Text } from 'react-native';
+import { Platform, View, ViewProps } from 'react-native';
 import { useTheme } from '../hooks/useTheme';
 
 export type Props = PropsWithChildren<
   ViewProps & {
-    name?: string;
-    value?: string;
+    /**
+     * Toggles the rounded corners
+     */
     rounded?: boolean;
   }
 >;
 
-export const Card = ({ name, value, children, style, rounded = true, ...rest }: Props) => {
+/**
+ * Renders an elevated surface on Android and a
+ * flat card on iOS
+ */
+export const Card = ({ children, style, rounded = true, ...rest }: Props) => {
   const { colors, shapes } = useTheme();
-
-  const shadow = Platform.OS === 'android' ? { 
-    shadowColor: colors.primary[700], 
-    elevation: 2 
-  } : {};
+  const shadow =
+    Platform.OS === 'android'
+      ? {
+          shadowColor: colors.primary[700],
+          elevation: 2,
+        }
+      : {};
 
   return (
     <View
       style={[
         {
-          flexDirection: 'column',
-          borderRadius: rounded ? shapes.lg : 0,
+          borderRadius: rounded ? shapes.lg : undefined,
           backgroundColor: colors.surface,
           ...shadow,
-          overflow: Platform.OS === 'ios' ? 'hidden' : 'visible',
-          padding: 10,
+          overflow: Platform.select({
+            ios: 'hidden',
+          }),
         },
         style,
       ]}
       {...rest}
     >
-      {name && <Text style={{ fontWeight: 'bold', color: String(colors.text) }}>{name}</Text>}
-      {value && <Text style={{ color: String(colors.text) }}>{value}</Text>}
-
-
       {children}
     </View>
   );

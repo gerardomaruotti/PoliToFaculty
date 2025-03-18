@@ -1,15 +1,15 @@
-import {
+
+  import React from 'react';
+  import {
     Children,
     cloneElement,
     isValidElement,
     PropsWithChildren,
     ReactElement,
-    ReactNode,
   } from 'react';
   import { ScrollView, ScrollViewProps, View } from 'react-native';
   import { useTheme } from '../hooks/useTheme';
   import { Props as TabProps } from './Tab';
-  import React from 'react';
   
   interface Props {
     selectedIndexes?: number[];
@@ -39,31 +39,25 @@ import {
         }}
         {...rest}
       >
-        {Children.map(children, (c: ReactNode, i) => {
-          // Ensure `c` is a valid React element of type TabProps
-          if (isValidElement(c)) {
-            const child = c as ReactElement<TabProps>;
-  
-            if (selectedIndexes != null) {
-              return (
-                <>
-                  {cloneElement(child, { selected: selectedIndexes.includes(i) })}
-                  {i < Children.count(children) - 1 && (
-                    <View
-                      style={{
-                        width: spacing[2] as number,
-                      }}
-                    />
-                  )}
-                </>
-              );
-            }
-  
-            return child; // Return the child if no `selectedIndexes` is provided
-          }
-          return null; // Return null for invalid or undefined children
-        })}
+        {Children.toArray(children).map((child, i) => {
+  if (!isValidElement<TabProps>(child)) return null; // Evita errori se non è un elemento valido
+
+  const isSelected = selectedIndexes?.includes(i) ?? false;
+  const clonedChild = cloneElement(child, { selected: isSelected });
+
+  return (
+    <React.Fragment key={i}>
+      {clonedChild}
+      {i < Children.count(children) - 1 && (
+        <View
+          style={{
+            width: spacing[2] as number,
+          }}
+        />
+      )}
+    </React.Fragment>
+  );
+})}
       </ScrollView>
     );
   };
-  
