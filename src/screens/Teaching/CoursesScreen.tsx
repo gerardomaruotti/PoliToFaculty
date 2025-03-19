@@ -1,15 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { ListItem } from '../ui/components/ListItem';
-import { Section } from '../ui/components/Section';
-import { SectionHeader } from '../ui/components/SectionHeader';
-import { SectionList } from '../ui/components/SectionList';
-import { useStylesheet } from '../ui/hooks/useStylesheet';
-import { useTheme } from '../ui/hooks/useTheme';
-import { Theme } from '../ui/types/theme';
-import { useCollapsingHeader } from '../core/components/useCollapsingHeader';
-import { useCourses } from '../core/contexts/CoursesContext';
+import { ListItem } from '../../ui/components/ListItem';
+import { Section } from '../../ui/components/Section';
+import { SectionHeader } from '../../ui/components/SectionHeader';
+import { SectionList } from '../../ui/components/SectionList';
+import { useStylesheet } from '../../ui/hooks/useStylesheet';
+import { useTheme } from '../../ui/hooks/useTheme';
+import { Theme } from '../../ui/types/theme';
+import { useCollapsingHeader } from '../../core/components/useCollapsingHeader';
+import { useCourses } from '../../core/contexts/CoursesContext';
 
 
 export const CoursesScreen = () => {
@@ -17,7 +17,7 @@ export const CoursesScreen = () => {
   const { spacing } = useTheme();
   const styles = useStylesheet(createStyles);
   const { scrollViewProps } = useCollapsingHeader();
-  const { fakeCourses, fakeExams, fakeGrades } = useCourses(); // Usa il hook per ottenere i dati
+  const { fakeCourses, fakeExams, fakeExamCalls } = useCourses(); // Usa il hook per ottenere i dati
 
 
   // 📌 Raggruppa i corsi per periodo

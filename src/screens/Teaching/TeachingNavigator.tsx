@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Animated, Platform, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from '../../ui/hooks/useTheme';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { CourseScreen } from '../CourseScreen';
-import { CoursesScreen } from '../CoursesScreen';
+import { CourseScreen } from './CourseScreen';
+import { CoursesScreen } from './CoursesScreen';
 import { ExamScreen } from '../ExamScreen';
 import { ExamsScreen } from '../ExamsScreen';
 import { GradesScreen } from '../GradesScreen';
@@ -14,9 +14,10 @@ import { TeachingScreen } from './TeachingScreen';
 import TranslucentView from '../../core/components/TranslucentView';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { Header } from '../../core/components/Header';
+import { CourseGuideScreen } from './CourseGuideScreen';
 
 export type TeachingStackParamList = {
-  Home: undefined;
+  Incarichi: undefined;
   Courses: undefined;
   Course: { id: number; courseName: string };
   CourseGuide: { courseId: number };
@@ -42,42 +43,44 @@ export const TeachingNavigator = () => {
   return (
     
     <Stack.Navigator
-  screenOptions={{
-    header: ({ options, route }) => {
-      const title = getHeaderTitle(options, route.name);
-      return <Header {...options} title={title} />;
-    },
-    headerTitleStyle: { color: colors.heading },
-    headerTransparent: true,
-    headerBackground: Platform.select({
-      ios: () => <TranslucentView />,
-      android: () => <Animated.View style={{ backgroundColor: colors.surface }} />,
-    }),
-  }}
 >
       <Stack.Screen
-        name="Home"
+        name="Incarichi"
         component={TeachingScreen}
-        /*options={{
-          headerShown : false
-        }} */
+        options={{
+      header: ({ options, route }) => {
+        const title = getHeaderTitle(options, route.name);
+        return <Header {...options} title={title} />;
+      },
+      headerTitleStyle: { color: colors.heading },
+      headerTransparent: true,
+      headerBackground: Platform.select({
+        ios: () => <TranslucentView />,
+        android: () => <Animated.View style={{ backgroundColor: colors.surface }} />,
+      }),
+    }}
       />
       <Stack.Screen
         name="Courses"
         component={CoursesScreen}
         options={{
-          headerTitle: t('Courses'),
+          header: ({ options, route }) => {
+            const title = getHeaderTitle(options, route.name);
+            return <Header {...options} title={title} />;
+          },
+          headerTitleStyle: { color: colors.heading },
+          headerTransparent: true,
+          headerBackground: Platform.select({
+            ios: () => <TranslucentView />,
+            android: () => <Animated.View style={{ backgroundColor: colors.surface }} />,
+          }),
         }}
       />
       <Stack.Screen
         name="Course"
         component={CourseScreen}
-        options={{
-          headerLargeTitle: false,
-          headerShadowVisible: false,
-        }}
       />
-      <Stack.Screen name="CourseGuide" component={EmptyScreen} />
+      <Stack.Screen name="CourseGuide" component={CourseGuideScreen} />
       <Stack.Screen
         name="CourseVideolecture"
         component={EmptyScreen}

@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { StyleSheet, Text as RNText, TextProps } from 'react-native';
+import { StyleSheet, Text as RNText, TextProps, TextStyle } from 'react-native';
 import { useStylesheet } from '../hooks/useStylesheet';
 import { useTheme } from '../hooks/useTheme';
 import { Theme } from '../types/theme';
@@ -12,7 +12,8 @@ interface Props {
     | 'prose'
     | 'secondaryText'
     | 'caption'
-    | 'link';
+    | 'link'
+    | 'headline';
   weight?: keyof Theme['fontWeights'];
   italic?: boolean;
 }
@@ -24,12 +25,9 @@ const defaultWeights = {
   link: 'normal',
   prose: 'normal',
   secondaryText: 'normal',
+  headline: 'bold',
 };
 
-/**
- * A wrapper around RN's Text component that applies basic theme
- * styles
- */
 export const Text = ({
   variant = 'prose',
   weight,
@@ -51,8 +49,8 @@ export const Text = ({
       style={[
         {
           fontFamily,
-          color: colors[variant],
-        },
+          color: typeof colors[variant] === 'string' ? colors[variant] : '#000', // ✅ Fallback a un colore valido
+        } as TextStyle, // ✅ Assicura compatibilità con TextStyle
         styles[variant],
         style,
       ]}
@@ -76,13 +74,18 @@ const createStyles = ({ fontSizes }: Theme) =>
       textTransform: 'uppercase',
     },
     prose: {
-      fontSize: fontSizes.md, // add font size for prose
+      fontSize: fontSizes.md,
     },
     secondaryText: {
-      fontSize: fontSizes.sm, // add font size for secondaryText
+      fontSize: fontSizes.sm,
     },
     link: {
-      fontSize: fontSizes.md, // add font size for link
-      textDecorationLine: 'underline', // add some styling for links
+      fontSize: fontSizes.md,
+      textDecorationLine: 'underline',
+    },
+    headline: {
+      fontSize: fontSizes['2xl'], // ✅ Usiamo '2xl' invece di 'xxl'
+      fontWeight: 'bold',
     },
   });
+

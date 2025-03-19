@@ -15,7 +15,7 @@ export const TeachingScreen = () => {
   const { t } = useTranslation();
   const styles = useStylesheet(createStyles);
   const { scrollViewProps } = useCollapsingHeader();
-  const { fakeCourses, fakeExams, fakeGrades, setSelectedCourse } = useCourses(); // Usa il hook per ottenere i dati
+  const { fakeCourses, fakeExams, setSelectedCourse, managedCourses} = useCourses(); // Usa il hook per ottenere i dati
   const navigation = useNavigation();
 
 
@@ -25,7 +25,7 @@ export const TeachingScreen = () => {
 
         {/* 📌 CORSI */}
         <View style={styles.section}>
-          <SectionHeader title={t('Courses')} linkTo="Courses" />
+          <SectionHeader title={"I miei corsi"} linkTo="Courses" />
           <SectionList>
             {fakeCourses.map(course => (
               <ListItem
@@ -43,32 +43,24 @@ export const TeachingScreen = () => {
 
         {/* 📌 ESAMI */}
         <View style={styles.section}>
-          <SectionHeader title={t('Exams')} linkTo="Exams" />
-          <View style={styles.cardContainer}>
-            {fakeExams.map(exam => (
-              <Card key={exam.id} style={styles.card}>
-                <View>
-                  <ListItem
-                    title={exam.subject}
-                    subtitle={`Data: ${exam.date} | Stato: ${exam.status}`}
-                  />
-                </View>
-              </Card>
+        <SectionHeader title={"I miei corsi"} linkTo="Courses" />
+          <SectionList>
+            {managedCourses.map(course => (
+              <ListItem
+                key={course.id}
+                title={course.title}
+                subtitle={course.subtitle}
+                onPress={() => {
+                  setSelectedCourse(course)
+                  navigation.navigate("Course");
+                }}
+              />
             ))}
-          </View>
+          </SectionList>
         </View>
 
-        {/* 📌 VOTI */}
-        <View style={styles.section}>
-          <SectionHeader title={t('Transcript')} linkTo="Grades" />
-          <View style={styles.cardContainer}>
-            {fakeGrades.map((grade, index) => (
-              <Card key={index} style={styles.card}>
-                <ListItem title={grade.subject} subtitle={`Voto: ${grade.grade}`} />
-              </Card>
-            ))}
-          </View>
-        </View>
+        {/* 📌 APPELLI */}
+       
 
       </View>
     </ScrollView>
