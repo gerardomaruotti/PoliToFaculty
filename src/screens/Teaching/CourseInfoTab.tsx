@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { ListItem } from '../../ui/components/ListItem';
 import { MetricCard } from '../../ui/components/MetricCard';
 import { Section } from '../../ui/components/Section';
@@ -11,21 +11,25 @@ import { CourseTabProps } from './CourseScreen';
 import { useCourses } from '../../core/contexts/CoursesContext';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const CourseInfoTab = ({
   courseId,
   setIsRefreshing,
 }: CourseTabProps) => {
   const { t } = useTranslation();
-  const { spacing } = useTheme();
+  const { spacing, colors } = useTheme();
   const { selectedCourse } = useCourses();
   const navigation = useNavigation();
 
-  // Simula il caricamento quando cambia il corso selezionato
-  useEffect(() => {
-    setIsRefreshing(!selectedCourse);
-  }, [selectedCourse]);
 
+
+  const pictureStyle = {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 20,
+  };
   // Se nessun corso è selezionato, mostra un messaggio di errore
   if (!selectedCourse) {
     return (
@@ -55,14 +59,29 @@ export const CourseInfoTab = ({
         <SectionHeader title={"Staff"} linkTo="AgendaScreen" />
         <SectionList>
           {selectedCourse.staff.map(staff => (
-            <ListItem
-              key={staff.id}
-              title={staff.name}
-              subtitle={staff.role}
-              onPress={() => {
-                navigation.navigate("Course");
-              }}
-            />
+             <ListItem
+             key={staff.id}
+             leadingItem={
+                 <View
+                   style={[
+                     pictureStyle,
+                     {
+                       backgroundColor: colors.background,
+                       display: 'flex',
+                       alignItems: 'center',
+                       justifyContent: 'center',
+                     },
+                   ]}
+                 >
+                   <Ionicons name="person-outline" color={colors.heading} size={20} />
+                 </View>
+               
+             }
+             title={`${staff.name}`}
+             subtitle={`${staff.role}`}
+             linkTo="Person"
+             
+           />
           ))}
         </SectionList> 
       </View> 

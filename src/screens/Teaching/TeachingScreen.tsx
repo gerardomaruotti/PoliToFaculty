@@ -20,7 +20,7 @@ export const TeachingScreen = () => {
 
 
   return (
-    <ScrollView {...scrollViewProps}>
+    <ScrollView {...scrollViewProps} >
       <View style={styles.sectionsContainer}>
 
         {/* 📌 CORSI */}
@@ -60,7 +60,24 @@ export const TeachingScreen = () => {
         </View>
 
         {/* 📌 APPELLI */}
-       
+        <View style={styles.section}>
+        <SectionHeader title={"Appelli"} linkTo="Appelli" />
+          <SectionList>
+            {fakeExams.map(exam => (
+              <ListItem
+                key={exam.id}
+                title={exam.subject}
+                subtitle={exam.date}
+                onPress={() => {
+                  navigation.navigate("Exam");
+                }}
+              />
+            ))}
+          </SectionList>
+        </View>
+        <View style={styles.paddingView}>
+
+        </View >
 
       </View>
     </ScrollView>
@@ -71,6 +88,7 @@ const createStyles = ({ spacing }: Theme) =>
   StyleSheet.create({
     sectionsContainer: {
       paddingVertical: spacing[5] as number,
+      minHeight : '100%' 
     },
     section: {
       marginBottom: spacing[5] as number,
@@ -82,5 +100,9 @@ const createStyles = ({ spacing }: Theme) =>
     },
     card: {
       padding: spacing[3] as number,
+    },
+    paddingView: {
+      height: 200, // Aggiungi uno spazio extra, modifica a piacere
+      backgroundColor: 'transparent', // Componente trasparente
     },
   });

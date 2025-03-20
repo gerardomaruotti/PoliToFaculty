@@ -11,6 +11,7 @@ import { getHeaderTitle } from '@react-navigation/elements';
  import { Tabs } from '../../ui/components/Tabs';
 import { TeachingScreen } from '../../screens/Teaching/TeachingScreen';
 import { TeachingNavigator } from '../../screens/Teaching/TeachingNavigator';
+import { AgendaNavigator } from '../../screens/Agenda/AgendaNavigator';
 
 
 const TabsNav = createBottomTabNavigator(); 
@@ -44,7 +45,7 @@ export const NavBar = () => {
       />
       <TabsNav.Screen
         name="Agenda"
-        component={EmptyScreen}
+        component={AgendaNavigator}
         options={{
           headerShown : false,
           tabBarLabel: 'Agenda',

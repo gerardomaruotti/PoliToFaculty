@@ -46,59 +46,64 @@ export const AgendaCard = ({
   const borderColor = color ?? colors.primary[500];
 
   return (
-    <TouchableHighlight>
-      <Card
-        style={[
-          {
-            flex: 1,
-            padding: spacing[5] as number,
-            borderWidth: 2,
-            borderColor,
-          },
-          style,
-        ]}
-        {...rest}
+    <Card
+      style={[
+        {
+          flex: 1,
+          borderWidth: 2,
+          borderColor,
+        },
+        style,
+      ]}
+      {...rest}
+    >
+      <TouchableHighlight
+        style={{
+          padding: spacing[5] as number ,
+        }}
       >
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          {typeof title === 'string' ? (
-            <Text
-              variant="title"
-              style={{
-                flex: 1,
-              }}
-            >
-              {title}
-            </Text>
-          ) : (
-            title
-          )}
-          {live && <LiveIndicator />}
-          <Text variant="secondaryText" style={{ fontSize: fontSizes.xs }}>
-            {time}
-          </Text>
-        </View>
-        {subtitle && (
-          <Text
-            variant="caption"
+        <View>
+          <View
             style={{
-              marginTop: spacing[1.5] as number,
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
           >
-            {subtitle}
-          </Text>
-        )}
-        {typeof children === 'string' ? (
-          <Text style={{ marginTop: spacing[2.5] as number}}>{children}</Text>
-        ) : (
-          children
-        )}
-      </Card>
-    </TouchableHighlight>
+            {typeof title === 'string' ? (
+              <Text
+                variant="title"
+                style={{
+                  flex: 1,
+                }}
+              >
+                {title}
+              </Text>
+            ) : (
+              title
+            )}
+            {live && <LiveIndicator />}
+            <Text variant="secondaryText" style={{ fontSize: fontSizes.xs }}>
+              {time}
+            </Text>
+          </View>
+          {subtitle && (
+            <Text
+              variant="caption"
+              style={{
+                marginTop: spacing[1.5] as number,
+              }}
+            >
+              {subtitle}
+            </Text>
+          )}
+          {typeof children === 'string' ? (
+            <Text style={{ marginTop: spacing[2.5] as number }}>{children}</Text>
+          ) : (
+            children
+          )}
+        </View>
+      </TouchableHighlight>
+    </Card>
   );
 };

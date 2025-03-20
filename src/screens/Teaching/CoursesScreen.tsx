@@ -17,7 +17,7 @@ export const CoursesScreen = () => {
   const { spacing } = useTheme();
   const styles = useStylesheet(createStyles);
   const { scrollViewProps } = useCollapsingHeader();
-  const { fakeCourses, fakeExams, fakeExamCalls } = useCourses(); // Usa il hook per ottenere i dati
+  const { fakeCourses, fakeExams } = useCourses(); // Usa il hook per ottenere i dati
 
 
   // 📌 Raggruppa i corsi per periodo
@@ -44,6 +44,7 @@ export const CoursesScreen = () => {
           </SectionList>
         </Section>
       ))}
+      <View style={styles.paddingView}></View >
       </View>
     </ScrollView>
   );
@@ -56,5 +57,9 @@ const createStyles = ({ spacing }: Theme) =>
     },
     sectionsContainer: {
       paddingVertical: spacing[5] as number,
+    },
+    paddingView: {
+      height: 200, // Aggiungi uno spazio extra, modifica a piacere
+      backgroundColor: 'transparent', // Componente trasparente
     },
   });

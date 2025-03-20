@@ -8,7 +8,7 @@ import { Text } from './Text';
 const liveIndicatorSize = 8;
 
 export const LiveIndicator = () => {
-  const { spacing, colors, fontSizes } = useTheme();
+  const { spacing, colors = { error: { 500: 'red' } }, fontSizes } = useTheme();
   const anim = useRef(new Animated.Value(1));
 
   useEffect(() => {

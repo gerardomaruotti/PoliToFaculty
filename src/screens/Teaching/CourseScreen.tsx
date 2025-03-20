@@ -18,7 +18,6 @@ import { Theme } from '../../ui/types/theme';
 import { useStylesheet } from '../../ui/hooks/useStylesheet';
 import { useCollapsingHeader } from '../../core/components/useCollapsingHeader';
 
-
 export type CourseTabProps = {
   courseId: number;
   setIsRefreshing: (value: boolean) => void;

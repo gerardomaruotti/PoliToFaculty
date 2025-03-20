@@ -15,6 +15,8 @@ import TranslucentView from '../../core/components/TranslucentView';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { Header } from '../../core/components/Header';
 import { CourseGuideScreen } from './CourseGuideScreen';
+import { Logo } from '../../core/components/Logo';
+import { titlesStyles } from '../../core/hooks/titlesStyles';
 
 export type TeachingStackParamList = {
   Incarichi: undefined;
@@ -24,7 +26,7 @@ export type TeachingStackParamList = {
   CourseVideolecture: { courseId: number; lectureId: number };
   CourseVirtualClassroom: { courseId: number; lectureId: number };
   CourseAssignmentUpload: { courseId: number };
-  Exams: undefined;
+  Appelli: undefined;
   Exam: { id: number };
   Grades: undefined;
 };
@@ -43,15 +45,20 @@ export const TeachingNavigator = () => {
   return (
     
     <Stack.Navigator
+    screenOptions={{
+          ...titlesStyles(colors),
+        }}
 >
       <Stack.Screen
         name="Incarichi"
         component={TeachingScreen}
         options={{
+
       header: ({ options, route }) => {
         const title = getHeaderTitle(options, route.name);
         return <Header {...options} title={title} />;
       },
+      headerLeft: () => <Logo />,
       headerTitleStyle: { color: colors.heading },
       headerTransparent: true,
       headerBackground: Platform.select({
@@ -95,10 +102,19 @@ export const TeachingNavigator = () => {
       />
 
       <Stack.Screen
-        name="Exams"
+        name="Appelli"
         component={ExamsScreen}
         options={{
-          headerTitle: t('Exams'),
+          header: ({ options, route }) => {
+            const title = getHeaderTitle(options, route.name);
+            return <Header {...options} title={title} />;
+          },
+          headerTitleStyle: { color: colors.heading },
+          headerTransparent: true,
+          headerBackground: Platform.select({
+            ios: () => <TranslucentView />,
+            android: () => <Animated.View style={{ backgroundColor: colors.surface }} />,
+          }),
         }}
       />
       <Stack.Screen name="Exam" component={ExamScreen} />

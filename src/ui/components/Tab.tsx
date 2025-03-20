@@ -2,8 +2,10 @@
 import React from 'react';
 import { PropsWithChildren, useMemo } from 'react';
 import {
+  StyleProp,
   Platform,
   StyleSheet,
+  TextStyle,
   TouchableHighlight,
   TouchableHighlightProps,
 } from 'react-native';
@@ -13,6 +15,7 @@ import { Text } from './Text';
 
 export interface Props {
   selected?: boolean;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 /**
@@ -22,6 +25,7 @@ export const Tab = ({
   children,
   style,
   selected = false,
+  textStyle,
   ...rest
 }: PropsWithChildren<TouchableHighlightProps & Props>) => {
   const { dark, colors, spacing } = useTheme();
@@ -32,7 +36,7 @@ export const Tab = ({
         : color(colors.muted[dark ? 800 : 200])
             .alpha(0.4)
             .toString(),
-    [dark, colors],
+            [selected, dark, colors],
   );
   const underlayColor = useMemo(
     () =>
@@ -41,14 +45,14 @@ export const Tab = ({
         : color(colors.muted[dark ? 800 : 200])
             .alpha(0.8)
             .toString(),
-    [dark, colors],
+            [selected, dark, colors],
   );
   const borderColor = useMemo(
     () =>
       color(colors.muted[dark ? 800 : 300])
         .alpha(0.6)
         .toString(),
-    [dark, colors],
+        [selected, dark, colors],
   );
 
   return (
@@ -73,10 +77,12 @@ export const Tab = ({
       {...rest}
     >
       <Text
-        style={{
-          color: selected ? colors.text[50] : colors.secondaryText,
-          marginBottom: Platform.select({ android: -3 }),
-        }}
+        style={[
+          {
+            color: selected ? colors.text[50] : colors.secondaryText,
+          },
+          textStyle,
+        ]}
       >
         {children}
       </Text>
