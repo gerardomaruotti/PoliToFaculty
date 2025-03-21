@@ -20,11 +20,10 @@ export const Card = ({ children, style, rounded = true, ...rest }: Props) => {
   const { colors, shapes } = useTheme();
   const shadow =
     Platform.OS === 'android'
-      ? {
-          shadowColor: colors.primary[700],
-          elevation: 2,
-        }
-      : {};
+    ? {
+        elevation: 2,
+      }
+    : {};
 
   return (
     <View

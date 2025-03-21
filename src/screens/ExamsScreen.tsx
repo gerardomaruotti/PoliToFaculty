@@ -4,11 +4,11 @@ import { Section } from '../ui/components/Section';
 import { SectionList } from '../ui/components/SectionList';
 import { ListItem } from '../ui/components/ListItem';
 import { useCourses } from '../core/contexts/CoursesContext';
-import { useBottomBarAwareStyles } from '../core/contexts/useBottomBarAwareStyles';
+import { useBottomBarAwareStyles } from '../core/hooks/useBottomBarAwareStyles';
 import { useTheme } from '../ui/hooks/useTheme';
 import { useStylesheet } from '../ui/hooks/useStylesheet';
 import { Theme } from '../ui/types/theme';
-import { useCollapsingHeader } from '../core/components/useCollapsingHeader';
+import { useCollapsingHeader } from '../core/hooks/useCollapsingHeader';
 
 export const ExamsScreen = () => {
   const { spacing } = useTheme();

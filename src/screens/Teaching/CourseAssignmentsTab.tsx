@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { List } from '../../ui/components/List';
 import { ListItem } from '../../ui/components/ListItem';
@@ -6,13 +6,14 @@ import { useTheme } from '../../ui/hooks/useTheme';
 import { useCourses } from '../../core/contexts/CoursesContext';
 import { CourseTabProps } from './CourseScreen';
 import React from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const CourseAssignmentsTab = ({
   courseId,
   setIsRefreshing,
   shouldRefresh,
 }: CourseTabProps) => {
-  const { spacing } = useTheme();
+  const { fontSizes, colors, spacing } = useTheme();
   const { fakeCourses, addNoticeToCourse, removeNoticeFromCourse } = useCourses();
 
   // Otteniamo il corso per il quale vogliamo visualizzare le notifiche
@@ -38,16 +39,27 @@ export const CourseAssignmentsTab = ({
 
   return (
     <View>
-      {/* Se non ci sono notifiche, mostra un caricamento */}
-      {assignments.length === 0 ? (
-        <ActivityIndicator style={{ marginVertical: spacing[8] as number }} />
-      ) : (
-        <List>
-          {assignments.map(n => (
-            <ListItem key={n.id} title={n.content} />
-          ))}
-        </List>
-      )}
-    </View>
+          <List>
+            {assignments.map((assignment, index) => (
+              <Fragment key={assignment.id}>
+                <ListItem
+                  title={assignment.content}
+                  subtitle={`${assignment.date.toLocaleString()}`}
+                  onPress={() => {
+                    console.log(`Pressed on ${assignment.id}`);
+                  }} // 🔹 Correzione: onPress ora è una funzione valida
+                  trailingItem={
+                    <Ionicons
+                      name="chevron-down-outline"
+                      color={colors.secondaryText}
+                      size={fontSizes['2xl']}
+                      style={{ marginRight: -spacing[1] }}
+                    />
+                  }
+                />
+              </Fragment>
+            ))}
+          </List>
+        </View>
   );
 };

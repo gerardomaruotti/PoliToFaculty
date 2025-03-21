@@ -3,7 +3,7 @@ import { useCourses } from '../../core/contexts/CoursesContext';
 import React from 'react';
 import { Theme } from '../../ui/types/theme';
 import { useStylesheet } from '../../ui/hooks/useStylesheet';
-import { useCollapsingHeader } from '../../core/components/useCollapsingHeader';
+import { useCollapsingHeader } from '../../core/hooks/useCollapsingHeader';
 
 
 

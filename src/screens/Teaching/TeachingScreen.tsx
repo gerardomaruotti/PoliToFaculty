@@ -6,7 +6,7 @@ import { SectionHeader } from '../../ui/components/SectionHeader';
 import { SectionList } from '../../ui/components/SectionList';
 import { useStylesheet } from '../../ui/hooks/useStylesheet';
 import { Theme } from '../../ui/types/theme';
-import { useCollapsingHeader } from '../../core/components/useCollapsingHeader';
+import { useCollapsingHeader } from '../../core/hooks/useCollapsingHeader';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useCourses } from '../../core/contexts/CoursesContext';

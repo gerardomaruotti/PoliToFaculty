@@ -8,7 +8,7 @@ import { SectionList } from '../../ui/components/SectionList';
 import { useStylesheet } from '../../ui/hooks/useStylesheet';
 import { useTheme } from '../../ui/hooks/useTheme';
 import { Theme } from '../../ui/types/theme';
-import { useCollapsingHeader } from '../../core/components/useCollapsingHeader';
+import { useCollapsingHeader } from '../../core/hooks/useCollapsingHeader';
 import { useCourses } from '../../core/contexts/CoursesContext';
 
 

@@ -41,6 +41,8 @@ export const AgendaNavigator = () => {
             headerLargeTitle: false,
             headerLeft: () => <Logo />,
             headerTitle: t('Agenda'),
+            headerTransparent: false,
+          headerShadowVisible: false,
           }}
       />
       <Stack.Screen

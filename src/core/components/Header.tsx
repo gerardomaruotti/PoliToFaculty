@@ -15,7 +15,7 @@ import {
 import { useTheme as useNavigationTheme } from '@react-navigation/native';
 import { useTheme } from '../../ui/hooks/useTheme';
 
-import { CollapsingHeaderContext } from './CollapsingHeaderContext';
+import { CollapsingHeaderContext } from '../contexts/CollapsingHeaderContext';
 import React from 'react';
 
 

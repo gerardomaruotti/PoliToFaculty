@@ -10,7 +10,7 @@ export const TranslucentView: React.FC<TranslucentViewProps> = ({ style }) => {
   return (
     <BlurView
       blurType="light"
-      blurAmount={10}
+      blurAmount={100}
       reducedTransparencyFallbackColor="rgba(255,255,255,0.7)"
       style={[StyleSheet.absoluteFill, style]}
     />

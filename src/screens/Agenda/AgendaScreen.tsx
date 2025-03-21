@@ -6,7 +6,7 @@ import { Tab } from '../../ui/components/Tab';
 import { Tabs } from '../../ui/components/Tabs';
 import { Text } from '../../ui/components/Text';
 import { useTheme } from '../../ui/hooks/useTheme';
-import { useBottomBarAwareStyles } from '../../core/contexts/useBottomBarAwareStyles';
+import { useBottomBarAwareStyles } from '../../core/hooks/useBottomBarAwareStyles';
 import React from 'react';
 
 export const AgendaScreen = () => {

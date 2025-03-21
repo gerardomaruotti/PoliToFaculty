@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
 import { ListItem } from '../../ui/components/ListItem';
 import { MetricCard } from '../../ui/components/MetricCard';
 import { Section } from '../../ui/components/Section';
@@ -12,6 +12,7 @@ import { useCourses } from '../../core/contexts/CoursesContext';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useBottomBarAwareStyles } from '../../core/hooks/useBottomBarAwareStyles';
 
 export const CourseInfoTab = ({
   courseId,
@@ -21,6 +22,7 @@ export const CourseInfoTab = ({
   const { spacing, colors } = useTheme();
   const { selectedCourse } = useCourses();
   const navigation = useNavigation();
+  const bottomBarAwareStyles = useBottomBarAwareStyles();
 
 
 
@@ -42,7 +44,10 @@ export const CourseInfoTab = ({
   }
 
   return (
-    <>
+    <ScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={bottomBarAwareStyles}
+    >
       <View style={{ padding: spacing[5] as number }}>
         <View style={{ flexDirection: 'row', marginBottom: spacing[5] as number }}>
           <MetricCard
@@ -110,6 +115,6 @@ export const CourseInfoTab = ({
           <ListItem title={t('Course guide')} linkTo="CourseGuide" />
         </SectionList> {/* Chiusura SectionList per altro */}
       </Section> {/* Chiusura Section per altro */}
-    </>
+    </ScrollView>
   );
 };
