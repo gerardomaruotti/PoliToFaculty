@@ -70,11 +70,28 @@ export const CourseScreen = () => {
         <CourseNoticesTab courseId={course.id} {...refreshControlProps} />
       ),
     },
+    
     {
       title: t('Materiale'),
       renderContent: () => (
         <View>
               <Text>Files</Text>
+            </View>
+      ),
+    },
+    {
+      title: t('Lezioni'),
+      renderContent: () => (
+        <View>
+              <Text>Lezioni</Text>
+            </View>
+      ),
+    },
+    {
+      title: t('Studenti'),
+      renderContent: () => (
+        <View>
+              <Text>Studenti</Text>
             </View>
       ),
     },
@@ -89,9 +106,9 @@ export const CourseScreen = () => {
   return (
     <ScrollView>
       <View  >
-        <SubHeader {...subHeaderProps}>
+        
         <Tabs />
-      </SubHeader>
+     
       <TabsContent />
       </View>
       
